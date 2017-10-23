@@ -1,0 +1,42 @@
+<div class="container-fluid">
+  <div class="row pn">
+    <div class="col-md-12 pn">
+      <div class="app-header text-center">
+        <img src="https://angular.io/assets/images/logos/angular/angular.png" class="app-logo" alt="logo">
+        <h3>Search github repositories with Angular 2</h3>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <template [ngIf]="selectedRepository.id">
+      <div class="row">
+        <div class="col-md-3 mt20">
+          <img [src]="selectedRepository.owner.avatar_url" class="repository-img" alt="logo" />
+        </div>
+        <div class="col-md-9 mt20">
+          <p class="repository-detail"><b>Author: </b>{{selectedRepository.owner.login}}</p>
+          <p class="repository-detail"><b>Repository: </b>{{selectedRepository.name}}</p>
+          <p class="repository-detail"><b>Repository: </b>{{selectedRepository.description}}</p>
+          <p class="repository-detail"><b>Language: </b><span class="badge badge-primary">{{selectedRepository.language}}</span></p>
+          <hr />
+          <a [href]="selectedRepository.html_url" role="button" class="btn btn-primary">Visit repository</a>   
+          <a href="/" role="button" class="btn btn-link">Back</a>
+        </div>
+      </div>
+    </template>
+    <div class="row">
+      <template [ngIf]="!selectedRepository.id">
+        <div class="col-md-12">
+          <input #input (keyup)="onSearch(input.value)" type="text" placeholder="Search repositories..." class="form-control mt20 mb20">
+        </div>
+        <div *ngFor="let repository of repositories" class="col-md-3">
+          <div class="repository-box text-center">
+            <img [src]="repository.owner.avatar_url" class="repository-img" alt="logo" />
+            <p class="mt20 repository-text">{{repository.full_name}}</p>
+            <a class="btn btn-link" role="button" (click)="viewRepository(repository)" href="#details">View details</a>
+          </div>
+        </div>
+      </template>
+    </div>
+  </div>
+</div>
